@@ -30,9 +30,11 @@ const Contactos: React.FC = () => {
   }
 
   function handleOnCloseAdd(value?: contacto) {
+    if (value) {
+      console.log(value);
+      setContactos([...contactos, value]);
+    }
     setOpenAdd(false);
-    // setContactos([...contactos, value]);
-    console.log(value);
   }
 
   return (
@@ -53,7 +55,7 @@ const Contactos: React.FC = () => {
 
       <div className="container">
         {contactos.map((item, index) => (
-          <Card key={index}>
+          <Card style={{ marginBottom: 20 }} key={index}>
             <CardHeader title={`${item.nombre} ${item.apellido}`} subheader={item.telefono}
               action={
                 <div>

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using contactsapp.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -27,17 +28,22 @@ namespace contactsapp.Controllers {
                 if (contacto != null) {
                     return Json(contacto);
                 }
-                return Json(new { message = $"Contacto no existe" });
+                return BadRequest(new { message = $"Contacto no existe" });
             }
-            return Json(new { message = $"No es un id valido" });
+            return BadRequest(new { message = $"No es un id valido" });
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] Contacto model) {
             //TODO: Implement Realistic Implementation
-            var created = dbctx.Add(model);
-            dbctx.SaveChanges();
-            return Json(created);
+            try {
+                model.ContactoId = dbctx.Contactos.DefaultIfEmpty().Max(max => max == null ? 0 : max.ContactoId) + 1;
+                var created = dbctx.Add(model);
+                dbctx.SaveChanges();
+                return Json(created.Entity);
+            } catch (Exception ex) {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPut("{id}")]
@@ -52,9 +58,9 @@ namespace contactsapp.Controllers {
                 if (contacto != null) {
                     return Json(contacto);
                 }
-                return Json(new { message = $"Contacto no existe" });
+                return BadRequest(new { message = $"Contacto no existe" });
             } else {
-                return Json(new { message = $"No es un id valido" });
+                return BadRequest(new { message = $"No es un id valido" });
             }
         }
 
@@ -69,9 +75,9 @@ namespace contactsapp.Controllers {
                 if (contacto != null) {
                     return Json(contacto);
                 }
-                return Json(new { message = $"Contacto no existe" });
+                return BadRequest(new { message = $"Contacto no existe" });
             } else {
-                return Json(new { message = $"No es un id valido" });
+                return BadRequest(new { message = $"No es un id valido" });
             }
         }
     }
