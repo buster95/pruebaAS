@@ -1,0 +1,7 @@
+{
+    "files.exclude": {
+        "**/[Bb]in": true,
+        "**/[Oo]bj": true,
+        "**/[Pp]roperties": true
+    }
+}

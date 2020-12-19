@@ -1,0 +1,1 @@
+dotnet ef dbcontext scaffold "Name=mycon" Microsoft.EntityFrameworkCore.SqlServer -o Models -f
