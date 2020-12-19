@@ -9,7 +9,7 @@ import contactosService from '../../Services/contactos.service';
 
 interface myprops {
   open: boolean;
-  onClose: (value) => void;
+  onClose: (value?: contacto) => void;
 }
 
 const AddContacto: React.FC<myprops> = (props) => {
@@ -54,7 +54,7 @@ const AddContacto: React.FC<myprops> = (props) => {
 
         <DialogActions>
           <Button variant="contained" color="primary" type="submit">Aceptar</Button>
-          <Button onClick={onClose}>Cancelar</Button>
+          <Button onClick={() => onClose()}>Cancelar</Button>
         </DialogActions>
       </form>
     </Dialog >
